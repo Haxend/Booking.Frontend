@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projects\\YoDevs200\\Booking.Frontend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{675DBCF1-9EC7-4D8A-B2F8-39F82A7FDC88}|booking.frontend.esproj|d:\\projects\\yodevs200\\booking.frontend\\src\\components\\pages\\loginpage\\loginpage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{675DBCF1-9EC7-4D8A-B2F8-39F82A7FDC88}|booking.frontend.esproj|solutionrelative:src\\components\\pages\\loginpage\\loginpage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginPage.tsx",
+              "DocumentMoniker": "D:\\Projects\\YoDevs200\\Booking.Frontend\\src\\Components\\Pages\\LoginPage\\LoginPage.tsx",
+              "RelativeDocumentMoniker": "src\\Components\\Pages\\LoginPage\\LoginPage.tsx",
+              "ToolTip": "D:\\Projects\\YoDevs200\\Booking.Frontend\\src\\Components\\Pages\\LoginPage\\LoginPage.tsx",
+              "RelativeToolTip": "src\\Components\\Pages\\LoginPage\\LoginPage.tsx",
+              "ViewState": "AQIAACAAAAAAAAAAAAAUwC8AAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-03-15T14:51:19.616Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
