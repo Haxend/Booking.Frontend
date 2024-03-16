@@ -15,16 +15,13 @@ const client = axios.create({
 async function loginAsync(login: string, password: string) {
     const config: AxiosRequestConfig = {
         headers: {
-            'accept' : 'text/plain',
-            'Content-Type': 'application/json',
+            'Accept': 'application/json',
         } as RawAxiosRequestHeaders,
     };
 
     try {
         const data = { 'email': login, 'password': password };
-        //const response: AxiosResponse = await client.post(`auth/Login`, data, config);
-
-        const response = await axios.post('http://localhost:5230/auth/Login', data , config);
+        const response: AxiosResponse = await client.post(`auth`, data, config);
 
         console.log('ответ: '+JSON.stringify(response));   
         console.log('ответ: ' + response.data.accessToken);
@@ -55,7 +52,7 @@ function login(login: string, password: string) {
     };
     const data = { 'email': login, 'password': password }
     console.log(data);
-    client.post('/Auth', data, config)
+    client.post('auth', data, config)
         .then((response) => {
             console.log(response.status);
             console.log(response.data);
