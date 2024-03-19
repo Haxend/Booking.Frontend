@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
 import { Component } from "react";
 import '../LoginPage/LoginPage.scss'
+import { useNavigate } from 'react-router-dom';
 
 interface LoginFormState {
     login: string;
@@ -19,6 +20,8 @@ async function loginAsync(login: string, password: string) {
         } as RawAxiosRequestHeaders,
     };
 
+    const navigate = useNavigate();
+
     try {
         const data = { 'email': login, 'password': password };
         const response: AxiosResponse = await client.post(`auth`, data, config);
@@ -28,6 +31,12 @@ async function loginAsync(login: string, password: string) {
         localStorage.setItem('id_token', response.data.accessToken);
         axios.defaults.headers.common = { 'Authorization': `Bearer ${response.data.accessToken}` }
         alert('Успешно залогинен на сервере под логином ' + login);
+
+        if (response.data.role === 'Admin')
+            navigate('/login');
+        else
+            navigate('/user');
+
     } catch (err) {
         if (axios.isAxiosError(err)) {
             if (err.response != null)

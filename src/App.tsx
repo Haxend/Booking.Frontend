@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useSelector } from 'react-redux'
 import { LoginPage } from './Components/Pages/LoginPage/LoginPage'
-import HomePage from './Components/Pages/HomePage/HomePage'
+import { HomePage } from './Components/Pages/HomePage/HomePage'
+import { AdminPage } from './Components/Pages/AdminPage/AdminPage'
 import './App.css'
 
 function App() {
@@ -23,7 +24,10 @@ function App() {
                 {/*</div>*/}
 
                 <Routes>
-                    <Route path='/' element={<LoginPage />} />
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/admin' element={<AdminPage />} />
+                    {/* <Route path='/user' element={<UserPage />} /> */}
                 </Routes>
             </BrowserRouter>
         </QueryClientProvider>
