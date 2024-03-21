@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useSelector } from 'react-redux'
-import { LoginPage } from './Components/Pages/LoginPage/LoginPage'
-import { HomePage } from './Components/Pages/HomePage/HomePage'
-import { AdminPage } from './Components/Pages/AdminPage/AdminPage'
-import './App.css'
+import { LoginPage } from './components/pages/LoginPage/LoginPage'
+import { RegistratePage } from './components/pages/RegistratePage/RegistratePage'
+import HomePage from './components/pages/HomePage/HomePage'
+import { AdminPage } from './components/pages/AdminPage/AdminPage'
+import NavBar from './components/common/NavBar/NavBar';
 
 function App() {
     const queryClient = new QueryClient()  
@@ -12,21 +13,12 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-                {/*<div>*/}
-                {/*    <nav>*/}
-                {/*        <ul>*/}
-                {/*            <li>*/}
-                {/*                <Link to={'/'}>Example</Link>*/}
-                {/*            </li>*/}
-
-                {/*        </ul>*/}
-                {/*    </nav>*/}
-                {/*</div>*/}
-
+            <NavBar/>
                 <Routes>
                     <Route path='/' element={<HomePage />} />
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/admin' element={<AdminPage />} />
+                    <Route path='/regist' element={<RegistratePage />} />
                     {/* <Route path='/user' element={<UserPage />} /> */}
                 </Routes>
             </BrowserRouter>

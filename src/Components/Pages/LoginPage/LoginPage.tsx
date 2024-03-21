@@ -1,6 +1,5 @@
 import axios, { AxiosResponse, AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
 import { Component } from "react";
-import '../LoginPage/LoginPage.scss'
 import { useNavigate } from 'react-router-dom';
 
 interface LoginFormState {
@@ -91,22 +90,25 @@ export class LoginPage extends Component<{}, LoginFormState> {
 
     render() {
 
-        return <div className="container">
-            <div className="form">
-                <div className="login-form">
-
-                    <input type="text"
-                        name="username"
-                        placeholder="Username"
-                        onChange={this.setLogin} />
-                    <input type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={this.setPassword} />
-
-                    <button className="btn" onClick={() => loginAsync(this.state.login, this.state.password)}>Login</button>
-
-                </div>
+        return <div className="container d-flex justify-content-center">
+            <div className="w-40">
+                <form className="card p-4 mt-4 d-flex align-items-center justify-content-center">
+                    <div className="mb-3 gap-1 d-flex">
+                        <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+                        <input type="text"
+                            name="username"
+                            placeholder="Username"
+                            onChange={this.setLogin} />
+                    </div>
+                    <div className="mb-3 gap-1 d-flex">
+                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                        <input type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={this.setPassword} />
+                    </div>
+                    <button type="submit" className="btn btn-primary w-50" onClick={() => loginAsync(this.state.login, this.state.password)}>Вход</button>
+                </form>
             </div>
         </div>
     }
