@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit'
-import authReducer from './Components/Reducer'
+import authReducer from '../components/Reducer'
 
 const rootReducer = combineReducers({
     auth: authReducer,
