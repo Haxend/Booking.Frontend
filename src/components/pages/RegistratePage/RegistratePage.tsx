@@ -17,12 +17,50 @@ const client = axios.create({
 });
 
 // Асинхронная функция регистрации
-async function registrateAsync(login: string, password: string) {
+async function registrateAsync(
+    email: string, 
+    login: string, 
+    password: string, 
+    firstname: string, 
+    middlename: string, 
+    lastname: string,
+    phonenumber: string
+    ) {
     const config: AxiosRequestConfig = {
         headers: {
             'Accept': 'application/json',
         } as RawAxiosRequestHeaders,
     };
+
+    const navigate = useNavigate();
+
+    try {
+        const data = { 'email': login, 'password': password };
+        const response: AxiosResponse = await client.post(`auth`, data, config);
+
+        console.log('ответ: '+JSON.stringify(response));   
+        console.log('ответ: ' + response.data.accessToken);
+        localStorage.setItem('id_token', response.data.accessToken);
+        axios.defaults.headers.common = { 'Authorization': `Bearer ${response.data.accessToken}` }
+        alert('Успешно залогинен на сервере под логином ' + login);
+
+        if (response.data.role === 'Admin')
+            navigate('/login');
+        else
+            navigate('/user');
+
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            if (err.response != null)
+                alert((err.response.data));
+            else if (err.code === 'ERR_NETWORK')
+                alert('Сервер недоступен');
+            else
+                alert('Непонятная ошибка');
+        } else {
+            alert('handleUnexpectedError(' + err + ')');
+        }
+    }
 }
 
 export class RegistratePage extends Component<{}, RegistrateFormState> {
@@ -86,7 +124,15 @@ export class RegistratePage extends Component<{}, RegistrateFormState> {
                             name="phonenumber"
                             placeholder="" />
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={() => registrateAsync(this.state.login, this.state.password)}>Зарегестрироваться</button>
+                    <button type="submit" className="btn btn-primary" onClick={() => 
+                        registrateAsync(
+                            this.state.email, 
+                            this.state.login,
+                            this.state.password,
+                            this.state.firstname,
+                            this.state.middlename,
+                            this.state.lastname,
+                            this.state.phonenumber,)}>Зарегестрироваться</button>
                 </form>
             </div>
         </div>
