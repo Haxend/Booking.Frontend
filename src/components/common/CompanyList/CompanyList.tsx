@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios, { AxiosResponse, AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from "react-router-dom";
 
 interface Comnpany {
     id: number;

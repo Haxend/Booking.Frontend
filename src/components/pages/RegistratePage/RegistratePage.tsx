@@ -1,141 +1,112 @@
 import axios, { AxiosResponse, AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
-import { Component } from "react";
+import { Component, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
-interface RegistrateFormState {
-    email: string;
-    login: string;
-    password: string;
-    firstname: string;
-    middlename: string;
-    lastname: string;
-    phonenumber: string;
-}
+import { MDBContainer, MDBInput, MDBCheckbox, MDBBtn } from 'mdb-react-ui-kit';
 
 const client = axios.create({
-    baseURL: 'http://localhost:5230/',
+    baseURL: 'http://localhost:5230/api/',
 });
 
-// Асинхронная функция регистрации
-async function registrateAsync(
-    email: string, 
-    login: string, 
-    password: string, 
-    firstname: string, 
-    middlename: string, 
-    lastname: string,
-    phonenumber: string
-    ) {
-    const config: AxiosRequestConfig = {
-        headers: {
-            'Accept': 'application/json',
-        } as RawAxiosRequestHeaders,
-    };
+export function RegistratePage() {
+    const [email, setEmail] = useState("")
+    const [login, setLogin] = useState("")
+    const [password, setPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [middleName, setMiddleName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
+
+    const editEmail = (e: any) => {
+        setEmail(e.target.value);
+    }
+
+    const editLogin = (e: any) => {
+        setLogin(e.target.value);
+    }
+
+    const editPassword = (e: any) => {
+        setPassword(e.target.value);
+    }
+
+    const editFirstName = (e: any) => {
+        setFirstName(e.target.value);
+    }
+
+    const editMiddle = (e: any) => {
+        setMiddleName(e.target.value);
+    }
+
+    const editLastName = (e: any) => {
+        setLastName(e.target.value);
+    }
+
+    const editPhoneNumber = (e: any) => {
+        setPhoneNumber(e.target.value);
+    }
 
     const navigate = useNavigate();
 
-    try {
-        const data = { 'email': login, 'password': password };
-        const response: AxiosResponse = await client.post(`auth`, data, config);
+    // Асинхронная функция регистрации
+    async function registrateAsync(
+        email: string,
+        login: string,
+        password: string,
+        firstName: string,
+        middleName: string,
+        lastName: string,
+        phoneNumber: string
+    ) {
+        const config: AxiosRequestConfig = {
+            headers: {
+                'Accept': 'trext/plain',
+            } as RawAxiosRequestHeaders,
+        };
 
-        console.log('ответ: '+JSON.stringify(response));   
-        console.log('ответ: ' + response.data.accessToken);
-        localStorage.setItem('id_token', response.data.accessToken);
-        axios.defaults.headers.common = { 'Authorization': `Bearer ${response.data.accessToken}` }
-        alert('Успешно залогинен на сервере под логином ' + login);
+        try {
+            const data = { 
+                'Email': email, 
+                'Login': login,
+                'Password': password,
+                'FirstName': firstName, 
+                'MiddleName': middleName,
+                'LastName': lastName,
+                'PhoneNumber': phoneNumber
+            };
+            const response: AxiosResponse = await client.post(`clients`, data, config);
+            alert('Регистрация пользователя ' + login + ' успешно!');
+            navigate('/');
 
-        if (response.data.role === 'Admin')
-            navigate('/login');
-        else
-            navigate('/user');
-
-    } catch (err) {
-        if (axios.isAxiosError(err)) {
-            if (err.response != null)
-                alert((err.response.data));
-            else if (err.code === 'ERR_NETWORK')
-                alert('Сервер недоступен');
-            else
-                alert('Непонятная ошибка');
-        } else {
-            alert('handleUnexpectedError(' + err + ')');
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                if (err.response != null)
+                    alert((err.response.data));
+                else if (err.code === 'ERR_NETWORK')
+                    alert('Сервер недоступен');
+                else
+                    alert('Непонятная ошибка');
+            } else {
+                alert('handleUnexpectedError(' + err + ')');
+            }
         }
     }
-}
 
-export class RegistratePage extends Component<{}, RegistrateFormState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            email: "",
-            login: "",
-            password: "",
-            firstname: "",
-            middlename: "",
-            lastname: "",
-            phonenumber: "",
-        };
-    }
+    return (
+        <MDBContainer className="p-3 my-5 d-flex flex-column" style={{ width: '30%' }}>
 
-    setLogin = (e: any) => {
-        this.setState({ login: e.target.value });
-    }
+            <MDBInput wrapperClass='mb-4' label='Login' id='form1' type='login' onChange={editLogin} />
+            <MDBInput wrapperClass='mb-4' label='Email' id='form2' type='email' onChange={editEmail} />
+            <MDBInput wrapperClass='mb-4' label='Password' id='form3' type='password' onChange={editPassword} />
+            <MDBInput wrapperClass='mb-4' label='Имя' id='form4' type='firstname' onChange={editFirstName} />
+            <MDBInput wrapperClass='mb-4' label='Фамилия' id='form5' type='lastname' onChange={editLastName} />
+            <MDBInput wrapperClass='mb-4' label='Отчество' id='form6' type='middlename' onChange={editMiddle} />
+            <MDBInput wrapperClass='mb-4' label='Номер телефона' id='form7' type='phonenumber' onChange={editPhoneNumber} />
 
-    setPassword = (e: any) => {
-        this.setState({ password: e.target.value });
-    }
-    render() {
-        return <div className="container d-flex justify-content-center">
-            <div className="w-50">
-                <form className="card p-4 mt-4 d-flex align-items-center justify-content-center">
-                    <div className="mb-3 gap-1 d-flex">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-                        <input type="text"
-                            name="email"
-                            placeholder="" />
-                    </div>
-                    <div className="mb-3 gap-1 d-flex">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                        <input type="password"
-                            name="password"
-                            placeholder="" />
-                    </div>
-                    <div className="mb-3 gap-1 d-flex">
-                        <label htmlFor="exampleInputFirstname1" className="form-label">Имя</label>
-                        <input type="firstname"
-                            name="firstname"
-                            placeholder="" />
-                    </div>
-                    <div className="mb-3 gap-1 d-flex">
-                        <label htmlFor="exampleInputLastname1" className="form-label">Фамилия</label>
-                        <input type="lastname"
-                            name="lastname"
-                            placeholder="" />
-                    </div>
-                    <div className="mb-3 gap-1 d-flex">
-                        <label htmlFor="exampleInputMiddlename1" className="form-label">Отчество</label>
-                        <input type="middlename"
-                            name="middlename"
-                            placeholder="" />
-                    </div>
-                    <div className="mb-3 gap-1 d-flex">
-                        <label htmlFor="exampleInputPhonenumber1" className="form-label">Номер телефона</label>
-                        <input type="phonenumber"
-                            name="phonenumber"
-                            placeholder="" />
-                    </div>
-                    <button type="submit" className="btn btn-primary" onClick={() => 
-                        registrateAsync(
-                            this.state.email, 
-                            this.state.login,
-                            this.state.password,
-                            this.state.firstname,
-                            this.state.middlename,
-                            this.state.lastname,
-                            this.state.phonenumber,)}>Зарегестрироваться</button>
-                </form>
+            <div className="d-flex justify-content-betwen mx-3 mb-4">
+                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Согласен с обработкой данных' />
             </div>
-        </div>
-    }
+
+            <MDBBtn className="mb-4 btn btn-primary" onClick={() => registrateAsync(email, login, password, firstName, middleName, lastName, phoneNumber)}>Зарегестрироватся</MDBBtn>
+        </MDBContainer>
+    )
 }
 
