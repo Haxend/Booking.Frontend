@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useSelector } from 'react-redux'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { LoginPage } from './components/pages/LoginPage/LoginPage'
 import { RegistratePage } from './components/pages/RegistratePage/RegistratePage'
 import HomePage from './components/pages/HomePage/HomePage'
-import { AdminPage } from './components/pages/AdminPage/AdminPage'
-import NavBar from './components/common/NavBar/NavBar';
+import NavBar from './components/common/NavBar/NavBar'
+import CompanyPage from './components/pages/CompanyPage/CompanyPage'
 
 function App() {
     const queryClient = new QueryClient()  
@@ -17,9 +16,8 @@ function App() {
                 <Routes>
                     <Route path='/' element={<HomePage />} />
                     <Route path='/login' element={<LoginPage />} />
-                    <Route path='/admin' element={<AdminPage />} />
                     <Route path='/regist' element={<RegistratePage />} />
-                    {/* <Route path='/user' element={<UserPage />} /> */}
+                    <Route path=':compId' element={<CompanyPage />} />
                 </Routes>
             </BrowserRouter>
         </QueryClientProvider>
