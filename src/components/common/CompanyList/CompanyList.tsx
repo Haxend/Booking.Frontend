@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios, { AxiosResponse, AxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
 import Card from 'react-bootstrap/Card';
+import { Link } from "react-router-dom";
 
 interface Comnpany {
     id: number;
@@ -49,17 +50,19 @@ function CompanyList() {
                 <div className="d-flex flex-wrap gap-3">
                     {companies.map(company => 
                     (
-                        <Card key={company.id} style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src="" onError={({ currentTarget }) => {
-                                currentTarget.onerror = null; // prevents looping
-                                currentTarget.src = "notfoundimage.jpg";
-                            }} />
-                            < Card.Body >
-                                <Card.Title>{company.name}</Card.Title>
-                                <Card.Text>{company.description}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <Link to={String(company.id)}>
+                            <Card key={company.id} style={{ width: '18rem' }}>
+                                <Card.Img variant="top" src="" onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null; // prevents looping
+                                    currentTarget.src = "notfoundimage.jpg";
+                                }} />
+                                < Card.Body >
+                                    <Card.Title>{company.name}</Card.Title>
+                                    <Card.Text>{company.description}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Link>
                     ))}
                 </div>
             )
