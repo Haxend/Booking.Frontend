@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { LoginPage } from './components/pages/LoginPage/LoginPage'
-import { RegistratePage } from './components/pages/RegistratePage/RegistratePage'
-import HomePage from './components/pages/HomePage/HomePage'
-import NavBar from './components/common/NavBar/NavBar'
-import CompanyPage from './components/pages/CompanyPage/CompanyPage'
+import { LoginPage } from './Components/Pages/LoginPage/LoginPage'
+import { RegistratePage } from './Components/Pages/RegistratePage/RegistratePage'
+import HomePage from './Components/Pages/HomePage/HomePage'
+import NavBar from './Components/common/NavBar/NavBar'
+import CompanyPage from './Components/Pages/CompanyPage/CompanyPage'
 
 function App() {
     const queryClient = new QueryClient()  
